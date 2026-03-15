@@ -1,0 +1,301 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Иван Петров",
+      "email": "ivan@tools.ru",
+      "phone": "+7 (900) 123-45-67",
+      "passwordHash": "$2a$10$mockhashivan",
+      "role": "OWNER",
+      "avatarUrl": "https://randomuser.me/api/portraits/men/1.jpg"
+    },
+    {
+      "id": 2,
+      "name": "ООО СтройИнструмент",
+      "email": "stroi@mail.ru",
+      "phone": "+7 (495) 123-45-67",
+      "passwordHash": "$2a$10$mockhashstroi",
+      "role": "OWNER",
+      "avatarUrl": "https://randomuser.me/api/portraits/men/2.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Алексей Смирнов",
+      "email": "alex@example.com",
+      "phone": "+7 (910) 234-56-78",
+      "passwordHash": "$2a$10$mockhashalex",
+      "role": "CUSTOMER",
+      "avatarUrl": "https://randomuser.me/api/portraits/men/3.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Елена Кузнецова",
+      "email": "elena@example.com",
+      "phone": "+7 (920) 345-67-89",
+      "passwordHash": "$2a$10$mockhashelena",
+      "role": "CUSTOMER",
+      "avatarUrl": "https://randomuser.me/api/portraits/women/4.jpg"
+    }
+  ],
+
+  "categories": [
+    { "id": 1, "name": "Электроинструменты", "parentId": null },
+    { "id": 2, "name": "Ручной инструмент", "parentId": null },
+    { "id": 3, "name": "Измерительные приборы", "parentId": null },
+    { "id": 4, "name": "Бетонное оборудование", "parentId": null },
+    { "id": 5, "name": "Сварочное оборудование", "parentId": null },
+    { "id": 6, "name": "Строительные леса и опалубка", "parentId": null }
+  ],
+
+  "products": [
+    {
+      "id": 1,
+      "ownerId": 1,
+      "name": "Перфоратор Bosch GBH 2-26",
+      "description": "Мощный перфоратор с SDS-plus патроном, 800 Вт, энергия удара 2,7 Дж",
+      "pricePerDay": 500,
+      "categoryId": 1,
+      "quantity": 5,
+      "images": [
+        "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400",
+        "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400"
+      ],
+      "createdAt": "2025-04-01T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "ownerId": 2,
+      "name": "Бетономешалка 120л",
+      "description": "Электрическая бетономешалка объемом 120 литров, мощность 550 Вт",
+      "pricePerDay": 800,
+      "categoryId": 4,
+      "quantity": 2,
+      "images": [
+        "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400"
+      ],
+      "createdAt": "2025-04-02T11:30:00Z"
+    },
+    {
+      "id": 3,
+      "ownerId": 1,
+      "name": "Лазерный нивелир Bosch GLL 3-80",
+      "description": "Трёхлучевой лазерный нивелир с дальностью 30 м, самовыравнивание",
+      "pricePerDay": 300,
+      "categoryId": 3,
+      "quantity": 3,
+      "images": [
+        "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=400"
+      ],
+      "createdAt": "2025-04-03T09:15:00Z"
+    },
+    {
+      "id": 4,
+      "ownerId": 2,
+      "name": "Шуруповерт Makita 6281D",
+      "description": "Аккумуляторный шуруповерт 12 В, комплект с двумя аккумуляторами",
+      "pricePerDay": 250,
+      "categoryId": 1,
+      "quantity": 4,
+      "images": [
+        "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400"
+      ],
+      "createdAt": "2025-04-04T14:20:00Z"
+    },
+    {
+      "id": 5,
+      "ownerId": 1,
+      "name": "Кувалда 5 кг",
+      "description": "Кувалда с деревянной ручкой, вес 5 кг, длина 900 мм",
+      "pricePerDay": 100,
+      "categoryId": 2,
+      "quantity": 10,
+      "images": [
+        "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=400"
+      ],
+      "createdAt": "2025-04-05T16:45:00Z"
+    },
+    {
+      "id": 6,
+      "ownerId": 2,
+      "name": "Сварочный инвертор Ресанта 160",
+      "description": "Инверторный сварочный аппарат для MMA сварки, ток до 160 А",
+      "pricePerDay": 600,
+      "categoryId": 5,
+      "quantity": 2,
+      "images": [
+        "https://images.unsplash.com/photo-1521147044869-2b0c11b8e1c9?w=400"
+      ],
+      "createdAt": "2025-04-06T08:10:00Z"
+    },
+    {
+      "id": 7,
+      "ownerId": 1,
+      "name": "Строительные леса (комплект на 5 м)",
+      "description": "Комплект рамных лесов высотой 5 м, длина 2 м, включает настилы",
+      "pricePerDay": 1500,
+      "categoryId": 6,
+      "quantity": 1,
+      "images": [
+        "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400"
+      ],
+      "createdAt": "2025-04-07T12:30:00Z"
+    }
+  ],
+
+  "orders": [
+    {
+      "id": 1,
+      "customerId": 3,
+      "createdAt": "2025-04-08T10:30:00Z",
+      "totalAmount": 2250,
+      "status": "PAID",
+      "deliveryMethod": "PICKUP",
+      "address": null,
+      "comment": "Заберу сам 10 апреля утром",
+      "qrCodeData": "order-1-uuid-qr"
+    },
+    {
+      "id": 2,
+      "customerId": 4,
+      "createdAt": "2025-04-09T14:15:00Z",
+      "totalAmount": 1600,
+      "status": "NEW",
+      "deliveryMethod": "DELIVERY",
+      "address": "ул. Строителей, д. 10, кв. 5",
+      "comment": "Просьба позвонить за час",
+      "qrCodeData": "order-2-uuid-qr"
+    },
+    {
+      "id": 3,
+      "customerId": 3,
+      "createdAt": "2025-04-01T09:00:00Z",
+      "totalAmount": 100,
+      "status": "COMPLETED",
+      "deliveryMethod": "PICKUP",
+      "address": null,
+      "comment": "",
+      "qrCodeData": "order-3-uuid-qr"
+    },
+    {
+      "id": 4,
+      "customerId": 3,
+      "createdAt": "2025-04-10T11:00:00Z",
+      "totalAmount": 2500,
+      "status": "CONFIRMED",
+      "deliveryMethod": "PICKUP",
+      "address": null,
+      "comment": "Нужен перфоратор с буром 10мм",
+      "qrCodeData": "order-4-uuid-qr"
+    }
+  ],
+
+  "orderItems": [
+    {
+      "id": 1,
+      "orderId": 1,
+      "productId": 1,
+      "productName": "Перфоратор Bosch GBH 2-26",
+      "quantity": 1,
+      "startDate": "2025-04-10",
+      "endDate": "2025-04-13",
+      "pricePerDay": 500
+    },
+    {
+      "id": 2,
+      "orderId": 1,
+      "productId": 4,
+      "productName": "Шуруповерт Makita 6281D",
+      "quantity": 1,
+      "startDate": "2025-04-10",
+      "endDate": "2025-04-13",
+      "pricePerDay": 250
+    },
+    {
+      "id": 3,
+      "orderId": 2,
+      "productId": 2,
+      "productName": "Бетономешалка 120л",
+      "quantity": 1,
+      "startDate": "2025-04-15",
+      "endDate": "2025-04-17",
+      "pricePerDay": 800
+    },
+    {
+      "id": 4,
+      "orderId": 3,
+      "productId": 5,
+      "productName": "Кувалда 5 кг",
+      "quantity": 1,
+      "startDate": "2025-04-01",
+      "endDate": "2025-04-02",
+      "pricePerDay": 100
+    },
+    {
+      "id": 5,
+      "orderId": 4,
+      "productId": 6,
+      "productName": "Сварочный инвертор Ресанта 160",
+      "quantity": 1,
+      "startDate": "2025-04-12",
+      "endDate": "2025-04-15",
+      "pricePerDay": 600
+    },
+    {
+      "id": 6,
+      "orderId": 4,
+      "productId": 3,
+      "productName": "Лазерный нивелир Bosch GLL 3-80",
+      "quantity": 2,
+      "startDate": "2025-04-12",
+      "endDate": "2025-04-14",
+      "pricePerDay": 300
+    }
+  ],
+
+  "payments": [
+    {
+      "id": 1,
+      "orderId": 1,
+      "amount": 2250,
+      "method": "SBP",
+      "status": "SUCCESS",
+      "transactionId": "yookassa-txn-12345",
+      "sbpQrCode": "https://qr.nspk.ru/AS1001A1BCDE2F3G4H5I6J7K8L9M0N1",
+      "createdAt": "2025-04-08T10:35:00Z",
+      "updatedAt": "2025-04-08T10:40:00Z"
+    },
+    {
+      "id": 2,
+      "orderId": 2,
+      "amount": 1600,
+      "method": "CARD",
+      "status": "PENDING",
+      "transactionId": null,
+      "sbpQrCode": null,
+      "createdAt": "2025-04-09T14:20:00Z",
+      "updatedAt": null
+    },
+    {
+      "id": 3,
+      "orderId": 3,
+      "amount": 100,
+      "method": "SBP",
+      "status": "SUCCESS",
+      "transactionId": "yookassa-txn-67890",
+      "sbpQrCode": "https://qr.nspk.ru/BS2002B2CDEF3G4H5I6J7K8L9M0N1O2",
+      "createdAt": "2025-04-01T09:05:00Z",
+      "updatedAt": "2025-04-01T09:10:00Z"
+    },
+    {
+      "id": 4,
+      "orderId": 4,
+      "amount": 2500,
+      "method": "SBP",
+      "status": "SUCCESS",
+      "transactionId": "yookassa-txn-24680",
+      "sbpQrCode": "https://qr.nspk.ru/CS3003C3DEFG4H5I6J7K8L9M0N1O2P3",
+      "createdAt": "2025-04-10T11:05:00Z",
+      "updatedAt": "2025-04-10T11:10:00Z"
+    }
+  ]
+}

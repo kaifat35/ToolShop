@@ -71,6 +71,7 @@ dependencies {
     //Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.logging.interceptor)
 
     //Json
     implementation(libs.kotlinx.serialization.json)
@@ -81,4 +82,19 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.material3.window.size)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
+    // Coil (images)
+    implementation(libs.coil.compose)
+
+    // Accompanist (для календаря и др.)
+    implementation(libs.accompanist.pager)
+
+    // Для работы с датами
+    implementation(libs.kotlinx.datetime)
+
+    // QR-код (для генерации и сканирования, но здесь только показ)
+    implementation(libs.core)
 }

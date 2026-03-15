@@ -1,0 +1,37 @@
+package com.efimov.toolshop.data.repository
+
+import com.efimov.toolshop.data.remove.ApiService
+import com.efimov.toolshop.domain.model.AvailabilityPeriod
+import com.efimov.toolshop.domain.model.Product
+import com.efimov.toolshop.domain.repository.ProductRepository
+import java.time.LocalDate
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class ProductRepositoryImpl @Inject constructor(
+    private val api: ApiService
+) : ProductRepository {
+
+    override suspend fun getProducts(categoryId: Int?, query: String?): List<Product> {
+        return api.getProducts(categoryId, query)
+    }
+
+    override suspend fun getProduct(id: Int): Product {
+        return api.getProduct(id)
+    }
+
+    override suspend fun getProductAvailability(productId: Int): List<AvailabilityPeriod> {
+
+        val items = api.getOrderItemsByProduct(productId)
+
+        return items.map {
+            AvailabilityPeriod(
+                productId = it.productId,
+                startDate = LocalDate.parse(it.startDate.day.toString()),
+                endDate = LocalDate.parse(it.endDate.day.toString()),
+                bookedQuantity = it.quantity
+            )
+        }
+    }
+}
