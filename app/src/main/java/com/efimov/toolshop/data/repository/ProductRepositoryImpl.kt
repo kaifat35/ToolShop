@@ -16,7 +16,7 @@ class ProductRepositoryImpl @Inject constructor(
     override suspend fun getProducts(categoryId: Int?, query: String?): List<Product> {
         val normalizedQuery = query?.trim()?.lowercase().orEmpty()
 
-        return api.getProducts(categoryId = categoryId, query = null, limit = 100)
+        return api.getProducts(categoryId = categoryId, query = null)
             .filter { dto ->
                 if (normalizedQuery.isBlank()) {
                     true

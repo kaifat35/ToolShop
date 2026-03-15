@@ -18,8 +18,6 @@ interface ApiService {
     suspend fun getProducts(
         @Query("categoryId") categoryId: Int? = null,
         @Query("q") query: String? = null,
-        @Query("_page") page: Int = 1,
-        @Query("_limit") limit: Int = 20
     ): List<ProductDto>
 
     @GET("products/{id}")
