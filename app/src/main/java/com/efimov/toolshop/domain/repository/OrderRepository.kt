@@ -1,11 +1,9 @@
 package com.efimov.toolshop.domain.repository
 
-import com.efimov.toolshop.domain.model.CreateOrderRequest
-
+import com.efimov.toolshop.data.remove.CreateOrderRequest
+import com.efimov.toolshop.domain.model.Order
 
 interface OrderRepository {
-
-    suspend fun getOrder(orderId: Int)
-
-    suspend fun createOrder(): CreateOrderRequest
+    suspend fun getOrders(customerId: Int): List<Order>
+    suspend fun createOrder(orderRequest: CreateOrderRequest): Order
 }

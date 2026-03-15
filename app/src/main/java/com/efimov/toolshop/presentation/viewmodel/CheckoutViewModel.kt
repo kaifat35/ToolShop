@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 
 @HiltViewModel
 class CheckoutViewModel @Inject constructor(
@@ -65,16 +66,18 @@ class CheckoutViewModel @Inject constructor(
 
     fun placeOrder() {
         viewModelScope.launch {
-            val currentUser = userRepository.getUserId()
+            val currentUserId = userRepository.getUserId().first() ?: return@launch
             val items = cartItems.value.map {
                 OrderItemRequest(
                     productId = it.product.id,
                     quantity = it.quantity,
-                    startDate = it.startDate.toString(), endDate = it.endDate.toString()
+                    startDate = it.startDate.toString(),
+                    endDate = it.endDate.toString()
                 )
             }
+
             val orderRequest = CreateOrderRequest(
-              customerId =currentUser.id,
+                customerId = currentUserId,
                 items = items,
                 deliveryMethod = uiState.value.deliveryMethod.name,
                 address = uiState.value.address,
@@ -84,7 +87,7 @@ class CheckoutViewModel @Inject constructor(
 
             val order = createOrderUseCase(orderRequest)
             val payment = createPaymentUseCase(
-               CreatePaymentRequest(
+                CreatePaymentRequest(
                     orderId = order.id,
                     amount = order.totalAmount,
                     method = uiState.value.paymentMethod.name
@@ -92,8 +95,6 @@ class CheckoutViewModel @Inject constructor(
             )
 
             cartRepository.clearAll()
-
-            // Переходим на экран оплаты
             _uiState.update { it.copy(orderId = order.id, payment = payment) }
         }
     }

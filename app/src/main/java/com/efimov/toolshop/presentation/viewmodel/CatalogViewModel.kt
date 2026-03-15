@@ -51,7 +51,7 @@ class CatalogViewModel @Inject constructor(
     private fun loadCategories() {
         viewModelScope.launch {
             val categories = getCategoriesUseCase()
-            _uiState.update { it.copy(categories = categories as List<Category>) }
+            _uiState.update { it.copy(categories = categories) }
         }
     }
 

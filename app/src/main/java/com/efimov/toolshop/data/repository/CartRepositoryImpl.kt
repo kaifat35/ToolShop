@@ -1,6 +1,7 @@
 package com.efimov.toolshop.data.repository
 
 import com.efimov.toolshop.data.local.db.AppDao
+import com.efimov.toolshop.data.local.mapper.toDbModel
 import com.efimov.toolshop.data.local.mapper.toEntities
 import com.efimov.toolshop.domain.model.CartItem
 import com.efimov.toolshop.domain.repository.CartRepository
@@ -13,28 +14,24 @@ class CartRepositoryImpl @Inject constructor(
 ) : CartRepository {
 
     override fun getAllItems(): Flow<List<CartItem>> {
-        return dao.getAllItems().map { items ->
-            items.toEntities()
-        }
+        return dao.getAllItems().map { it.toEntities() }
     }
 
     override suspend fun addItem(item: CartItem) {
-        return dao.insert(item)
+        dao.insert(item.toDbModel())
     }
 
     override suspend fun removeItem(item: CartItem) {
-        return dao.delete(item)
+        dao.deleteByProductId(item.productId)
     }
 
     override suspend fun updateItem(item: CartItem) {
-        return dao.updateItem(item)
+        dao.updateItem(item.toDbModel())
     }
 
     override suspend fun clearAll() {
-       return dao.clearAll()
+        dao.clearAll()
     }
 
-    override fun getItemCount(): Flow<Int> {
-        return dao.getCount()
-    }
+    override fun getItemCount(): Flow<Int> = dao.getCount()
 }

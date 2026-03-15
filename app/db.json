@@ -35,6 +35,15 @@
       "passwordHash": "$2a$10$mockhashelena",
       "role": "CUSTOMER",
       "avatarUrl": "https://randomuser.me/api/portraits/women/4.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Алексей Ефимов",
+      "email": "mr-kaifat@yandex.ru",
+      "phone": "+7 (920) 345-67-89",
+      "passwordHash": "2348910",
+      "role": "CUSTOMER",
+      "avatarUrl": "https://randomuser.me/api/portraits/women/4.jpg"
     }
   ],
 

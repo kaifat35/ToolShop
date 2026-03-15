@@ -1,19 +1,21 @@
 package com.efimov.toolshop.data.repository
 
-import com.efimov.toolshop.data.local.db.AppDao
-import com.efimov.toolshop.domain.model.CreateOrderRequest
+import com.efimov.toolshop.data.remove.ApiService
+import com.efimov.toolshop.data.remove.CreateOrderRequest
+import com.efimov.toolshop.domain.model.Order
 import com.efimov.toolshop.domain.repository.OrderRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class OrderRepositoryImpl@Inject constructor(
-    private val dao: AppDao
+class OrderRepositoryImpl @Inject constructor(
+    private val api: ApiService
 ) : OrderRepository {
-    override suspend fun getOrder(orderId: Int): Flow<Int> {
-        return dao.getOrder(orderId)
+
+    override suspend fun getOrders(customerId: Int): List<Order> {
+        return api.getOrders(customerId)
     }
 
-    override suspend fun createOrder(orderRequest: CreateOrderRequest) {
-        return dao.createOrder(orderRequest)
+    override suspend fun createOrder(orderRequest: CreateOrderRequest): Order {
+        return api.createOrder(orderRequest)
     }
 }
+

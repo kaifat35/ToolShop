@@ -71,6 +71,7 @@ dependencies {
     //Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
 
     //Json

@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.efimov.toolshop.presentation.viewmodel.OrderDetailViewModel
-import java.time.temporal.ChronoUnit
+import kotlinx.datetime.daysUntil
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
@@ -60,16 +60,12 @@ fun OrderDetailScreen(
                     Divider(modifier = Modifier.padding(vertical = 8.dp))
                     Text("Состав заказа:", style = MaterialTheme.typography.titleMedium)
                     ord.items.forEach { item ->
-                        Card(modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 4.dp)) {
+                        Card(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
                             Column(modifier = Modifier.padding(8.dp)) {
                                 Text(item.productName, fontWeight = FontWeight.Bold)
                                 Text("${item.quantity} шт. x ${item.pricePerDay} ₽/сутки")
                                 Text("Период: ${item.startDate} - ${item.endDate}")
-                                val days =
-                                    ChronoUnit.DAYS.between(item.startDate, item.endDate).toInt()
-                                        .coerceAtLeast(1)
+                                val days = item.startDate.daysUntil(item.endDate).coerceAtLeast(1)
                                 Text("Стоимость: ${item.pricePerDay * days.toBigDecimal() * item.quantity.toBigDecimal()} ₽")
                             }
                         }
@@ -78,12 +74,7 @@ fun OrderDetailScreen(
                     Divider()
                     Text("Итого: ${ord.totalAmount} ₽", fontWeight = FontWeight.Bold)
                 }
-            } ?: Box(Modifier.fillMaxSize()) {
-                Text(
-                    "Заказ не найден",
-                    Modifier.align(Alignment.Center)
-                )
-            }
+            } ?: Box(Modifier.fillMaxSize()) { Text("Заказ не найден", Modifier.align(Alignment.Center)) }
         }
     }
 }

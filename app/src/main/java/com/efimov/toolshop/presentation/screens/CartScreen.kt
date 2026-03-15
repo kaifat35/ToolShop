@@ -31,7 +31,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.efimov.toolshop.domain.model.CartItem
 import com.efimov.toolshop.presentation.viewmodel.CartViewModel
-import kotlinx.datetime.LocalDate
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

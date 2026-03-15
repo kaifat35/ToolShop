@@ -1,6 +1,5 @@
 package com.efimov.toolshop.domain.model
 
-import com.efimov.toolshop.data.remove.OrderItemRequest
 import kotlinx.datetime.LocalDate
 import java.math.BigDecimal
 import kotlin.time.ExperimentalTime
@@ -27,13 +26,4 @@ data class OrderItem(
     val startDate: LocalDate,
     val endDate: LocalDate,
     val pricePerDay: BigDecimal
-)
-
-data class CreateOrderRequest(
-    val customerId: Int,
-    val items: List<OrderItemRequest>,
-    val deliveryMethod: String,
-    val address: String?,
-    val comment: String?,
-    val paymentMethod: String
 )

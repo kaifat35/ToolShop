@@ -14,22 +14,41 @@ class ProductRepositoryImpl @Inject constructor(
 ) : ProductRepository {
 
     override suspend fun getProducts(categoryId: Int?, query: String?): List<Product> {
-        return api.getProducts(categoryId, query)
+        return api.getProducts(categoryId, query).map { dto ->
+            Product(
+                id = dto.id,
+                ownerId = dto.ownerId,
+                name = dto.name,
+                description = dto.description,
+                pricePerDay = dto.pricePerDay,
+                categoryId = dto.categoryId,
+                quantity = dto.quantity,
+                image = dto.image
+            )
+        }
     }
 
     override suspend fun getProduct(id: Int): Product {
-        return api.getProduct(id)
+        val dto = api.getProduct(id)
+        return Product(
+            id = dto.id,
+            ownerId = dto.ownerId,
+            name = dto.name,
+            description = dto.description,
+            pricePerDay = dto.pricePerDay,
+            categoryId = dto.categoryId,
+            quantity = dto.quantity,
+            image = dto.image
+        )
     }
 
     override suspend fun getProductAvailability(productId: Int): List<AvailabilityPeriod> {
-
         val items = api.getOrderItemsByProduct(productId)
-
         return items.map {
             AvailabilityPeriod(
                 productId = it.productId,
-                startDate = LocalDate.parse(it.startDate.day.toString()),
-                endDate = LocalDate.parse(it.endDate.day.toString()),
+                startDate = LocalDate.parse(it.startDate.toString()),
+                endDate = LocalDate.parse(it.endDate.toString()),
                 bookedQuantity = it.quantity
             )
         }
