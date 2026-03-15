@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
+import kotlinx.coroutines.flow.collectLatest
 
 @HiltViewModel
 class CheckoutViewModel @Inject constructor(
@@ -40,8 +41,9 @@ class CheckoutViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val total = cartItems.value.sumOf { it.totalPrice }
-            _uiState.update { it.copy(totalAmount = total) }
+            cartItems.collectLatest { items ->
+                _uiState.update { it.copy(totalAmount = items.sumOf { item -> item.totalPrice }) }
+            }
         }
     }
 
@@ -92,7 +94,7 @@ class CheckoutViewModel @Inject constructor(
             cartRepository.clearAll()
 
             // Переходим на экран оплаты
-            _uiState.update { it.copy(orderId = orderRequest.customerId, payment = payment) }
+            _uiState.update { it.copy(orderId = order.id, payment = payment) }
         }
     }
 }

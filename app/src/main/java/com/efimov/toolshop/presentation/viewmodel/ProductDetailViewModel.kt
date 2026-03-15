@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
+import java.time.LocalDate
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -54,13 +54,16 @@ class ProductDetailViewModel @Inject constructor(
 
     fun addToCart() {
         viewModelScope.launch {
+            val state = _uiState.value
+            if (state.product.id == 0 || state.startDate == null || state.endDate == null) return@launch
+
             val cartItem = CartItem(
-                productId = _uiState.value.product.id,
-                productJson = _uiState.value.product.name,
-                product = _uiState.value.product,
+                productId = state.product.id,
+                productJson = state.product.name,
+                product = state.product,
                 quantity = 1,
-                startDate = _uiState.value.startDate as java.time.LocalDate?,
-                endDate = _uiState.value.endDate as java.time.LocalDate?,
+                startDate = state.startDate,
+                endDate = state.endDate
             )
             cartRepository.addItem(cartItem)
         }

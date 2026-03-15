@@ -16,6 +16,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -24,8 +26,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.efimov.toolshop.presentation.viewmodel.OrderDetailViewModel
 import java.time.temporal.ChronoUnit
+import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
 fun OrderDetailScreen(
     orderId: Int?,
@@ -35,9 +38,7 @@ fun OrderDetailScreen(
     val order by viewModel.order.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
 
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Детали заказа") }) }
-    ) { paddingValues ->
+    Scaffold(topBar = { TopAppBar(title = { Text("Детали заказа #${orderId ?: "-"}") }) }) { paddingValues ->
         if (isLoading) {
             Box(Modifier.fillMaxSize()) { CircularProgressIndicator(Modifier.align(Alignment.Center)) }
         } else {
@@ -57,15 +58,18 @@ fun OrderDetailScreen(
                     if (ord.comment != null) Text("Комментарий: ${ord.comment}")
 
                     Divider(modifier = Modifier.padding(vertical = 8.dp))
-
                     Text("Состав заказа:", style = MaterialTheme.typography.titleMedium)
                     ord.items.forEach { item ->
-                        Card(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+                        Card(modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp)) {
                             Column(modifier = Modifier.padding(8.dp)) {
                                 Text(item.productName, fontWeight = FontWeight.Bold)
                                 Text("${item.quantity} шт. x ${item.pricePerDay} ₽/сутки")
                                 Text("Период: ${item.startDate} - ${item.endDate}")
-                                val days = ChronoUnit.DAYS.between(item.startDate, item.endDate).toInt()
+                                val days =
+                                    ChronoUnit.DAYS.between(item.startDate, item.endDate).toInt()
+                                        .coerceAtLeast(1)
                                 Text("Стоимость: ${item.pricePerDay * days.toBigDecimal() * item.quantity.toBigDecimal()} ₽")
                             }
                         }
@@ -74,6 +78,11 @@ fun OrderDetailScreen(
                     Divider()
                     Text("Итого: ${ord.totalAmount} ₽", fontWeight = FontWeight.Bold)
                 }
+            } ?: Box(Modifier.fillMaxSize()) {
+                Text(
+                    "Заказ не найден",
+                    Modifier.align(Alignment.Center)
+                )
             }
         }
     }

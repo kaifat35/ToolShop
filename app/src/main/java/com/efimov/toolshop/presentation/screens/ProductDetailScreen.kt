@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -32,7 +33,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.efimov.toolshop.presentation.viewmodel.ProductDetailViewModel
 import com.google.accompanist.pager.HorizontalPager
-import kotlinx.datetime.LocalDate
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -115,12 +117,20 @@ fun DateRangePicker(
     onStartDateChange: (LocalDate) -> Unit,
     onEndDateChange: (LocalDate) -> Unit,
 ) {
+    val today = LocalDate.now()
+
     Row {
-        OutlinedButton(onClick = { /* показать DatePicker диалог */ }) {
+        OutlinedButton(onClick = { onStartDateChange(today) }) {
             Text(startDate?.toString() ?: "Начало")
         }
-        OutlinedButton(onClick = { /* показать DatePicker диалог */ }) {
+        Spacer(modifier = Modifier.width(8.dp))
+        OutlinedButton(onClick = { onEndDateChange((startDate ?: today).plusDays(1)) }) {
             Text(endDate?.toString() ?: "Окончание")
         }
+    }
+
+    if (startDate != null && endDate != null) {
+        val days = ChronoUnit.DAYS.between(startDate, endDate).coerceAtLeast(1)
+        Text("Срок аренды: $days дн.")
     }
 }

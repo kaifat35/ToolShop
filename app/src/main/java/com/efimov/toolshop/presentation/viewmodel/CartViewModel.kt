@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
+import java.time.LocalDate
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -33,7 +33,7 @@ class CartViewModel @Inject constructor(
     }
 
     fun updateItemDates(item: CartItem, startDate: LocalDate?, endDate: LocalDate?) {
-        val updated = item.copy(startDate = startDate as java.time.LocalDate?, endDate = endDate as java.time.LocalDate?)
+        val updated = item.copy(startDate = startDate, endDate = endDate)
         viewModelScope.launch {
             cartRepository.updateItem(updated)
         }
