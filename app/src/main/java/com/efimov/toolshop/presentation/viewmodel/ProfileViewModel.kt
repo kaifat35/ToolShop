@@ -1,15 +1,20 @@
 package com.efimov.toolshop.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.efimov.toolshop.domain.usecase.user.ClearAuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor() : ViewModel() {
+class ProfileViewModel @Inject constructor(
+    private val clearAuthUseCase: ClearAuthUseCase
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
         ProfileUiState(
@@ -21,7 +26,10 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
     val uiState: StateFlow<ProfileUiState> = _uiState.asStateFlow()
 
     fun logout() {
-        _uiState.update { it.copy(isAuthorized = false) }
+        viewModelScope.launch {
+            clearAuthUseCase()
+            _uiState.update { it.copy(isAuthorized = false) }
+        }
     }
 }
 
