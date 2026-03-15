@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -33,7 +35,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -49,6 +53,7 @@ fun CatalogScreen(
     viewModel: CatalogViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val focusManager = LocalFocusManager.current
 
     Scaffold(
         topBar = {
@@ -58,7 +63,6 @@ fun CatalogScreen(
                     IconButton(onClick = { navController.navigate("cart") }) {
                         Badge(
                             containerColor = MaterialTheme.colorScheme.primary,
-                            content = { Text(viewModel.cartItemCount.toString()) }
                         )
                         Icon(
                             Icons.Default.ShoppingCart,
@@ -78,7 +82,15 @@ fun CatalogScreen(
                     .fillMaxWidth()
                     .padding(16.dp),
                 placeholder = { Text("Поиск...") },
-                leadingIcon = { Icon(Icons.Default.Search, null) }
+                leadingIcon = { Icon(Icons.Default.Search, null) },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(
+                    onSearch = {
+                        viewModel.onQueryChanged(uiState.query)
+                        focusManager.clearFocus()
+                    }
+                )
             )
 
             // Фильтры (категории)
