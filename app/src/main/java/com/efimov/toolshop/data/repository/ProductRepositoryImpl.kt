@@ -14,18 +14,29 @@ class ProductRepositoryImpl @Inject constructor(
 ) : ProductRepository {
 
     override suspend fun getProducts(categoryId: Int?, query: String?): List<Product> {
-        return api.getProducts(categoryId, query).map { dto ->
-            Product(
-                id = dto.id,
-                ownerId = dto.ownerId,
-                name = dto.name,
-                description = dto.description,
-                pricePerDay = dto.pricePerDay,
-                categoryId = dto.categoryId,
-                quantity = dto.quantity,
-                image = dto.image
-            )
-        }
+        val normalizedQuery = query?.trim()?.lowercase().orEmpty()
+
+        return api.getProducts(categoryId = categoryId, query = null, limit = 100)
+            .filter { dto ->
+                if (normalizedQuery.isBlank()) {
+                    true
+                } else {
+                    dto.name.lowercase().contains(normalizedQuery) ||
+                            dto.description?.lowercase()?.contains(normalizedQuery) == true
+                }
+            }
+            .map { dto ->
+                Product(
+                    id = dto.id,
+                    ownerId = dto.ownerId,
+                    name = dto.name,
+                    description = dto.description,
+                    pricePerDay = dto.pricePerDay,
+                    categoryId = dto.categoryId,
+                    quantity = dto.quantity,
+                    image = dto.image
+                )
+            }
     }
 
     override suspend fun getProduct(id: Int): Product {
