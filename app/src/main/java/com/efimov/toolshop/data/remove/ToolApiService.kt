@@ -17,7 +17,8 @@ interface ApiService {
     @GET("products")
     suspend fun getProducts(
         @Query("categoryId") categoryId: Int? = null,
-        @Query("q") query: String? = null,
+        @Query("name_like") nameLike: String? = null,
+        @Query("description_like") descriptionLike: String? = null,
     ): List<ProductDto>
 
     @GET("products/{id}")

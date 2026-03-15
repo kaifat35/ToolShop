@@ -8,6 +8,7 @@ import com.efimov.toolshop.domain.repository.CartRepository
 import com.efimov.toolshop.domain.usecase.category.GetCategoriesUseCase
 import com.efimov.toolshop.domain.usecase.product.GetProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -32,6 +33,8 @@ class CatalogViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = 0
     )
+
+    private var loadProductsJob: Job? = null
 
     init {
         loadCategories()
@@ -61,12 +64,14 @@ class CatalogViewModel @Inject constructor(
     }
 
     private fun loadProducts() {
-        viewModelScope.launch {
+        loadProductsJob?.cancel()
+        loadProductsJob = viewModelScope.launch {
+            val currentState = _uiState.value
             _uiState.update { it.copy(isLoading = true) }
             runCatching {
                 getProductsUseCase(
-                    categoryId = _uiState.value.selectedCategoryId,
-                    query = _uiState.value.query.takeIf { it.isNotBlank() }
+                    categoryId = currentState.selectedCategoryId,
+                    query = currentState.query.takeIf { it.isNotBlank() }
                 )
             }.onSuccess { products ->
                 _uiState.update {
