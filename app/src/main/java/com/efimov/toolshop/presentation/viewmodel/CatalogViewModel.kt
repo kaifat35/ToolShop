@@ -50,19 +50,33 @@ class CatalogViewModel @Inject constructor(
 
     private fun loadCategories() {
         viewModelScope.launch {
-            val categories = getCategoriesUseCase()
-            _uiState.update { it.copy(categories = categories) }
+            runCatching { getCategoriesUseCase() }
+                .onSuccess { categories ->
+                    _uiState.update { it.copy(categories = categories, errorMessage = null) }
+                }
+                .onFailure {
+                    _uiState.update { it.copy(errorMessage = "Не удалось загрузить категории") }
+                }
         }
     }
 
     private fun loadProducts() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
-            val products = getProductsUseCase(
-                categoryId = _uiState.value.selectedCategoryId,
-                query = _uiState.value.query.takeIf { it.isNotBlank() }
-            )
-            _uiState.update { it.copy(products = products, isLoading = false) }
+            runCatching {
+                getProductsUseCase(
+                    categoryId = _uiState.value.selectedCategoryId,
+                    query = _uiState.value.query.takeIf { it.isNotBlank() }
+                )
+            }.onSuccess { products ->
+                _uiState.update {
+                    it.copy(products = products, isLoading = false, errorMessage = null)
+                }
+            }.onFailure {
+                _uiState.update {
+                    it.copy(isLoading = false, errorMessage = "Не удалось загрузить товары")
+                }
+            }
         }
     }
 }
@@ -72,5 +86,6 @@ data class CatalogUiState(
     val categories: List<Category> = emptyList(),
     val selectedCategoryId: Int? = null,
     val query: String = "",
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val errorMessage: String? = null
 )

@@ -10,7 +10,7 @@ import com.efimov.toolshop.data.local.entity.CategoryDbModel
         CartItemDbModel::class,
         CategoryDbModel::class
     ],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

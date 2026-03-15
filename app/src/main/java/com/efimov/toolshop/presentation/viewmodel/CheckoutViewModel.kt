@@ -66,36 +66,43 @@ class CheckoutViewModel @Inject constructor(
 
     fun placeOrder() {
         viewModelScope.launch {
-            val currentUserId = userRepository.getUserId().first() ?: return@launch
-            val items = cartItems.value.map {
-                OrderItemRequest(
-                    productId = it.product.id,
-                    quantity = it.quantity,
-                    startDate = it.startDate.toString(),
-                    endDate = it.endDate.toString()
+            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            runCatching {
+                val currentUserId = userRepository.getUserId().first() ?: error("Пользователь не авторизован")
+                val items = cartItems.value.map {
+                    OrderItemRequest(
+                        productId = it.product.id,
+                        quantity = it.quantity,
+                        startDate = it.startDate.toString(),
+                        endDate = it.endDate.toString()
+                    )
+                }
+
+                val orderRequest = CreateOrderRequest(
+                    customerId = currentUserId,
+                    items = items,
+                    deliveryMethod = uiState.value.deliveryMethod.name,
+                    address = uiState.value.address,
+                    comment = uiState.value.comment,
+                    paymentMethod = uiState.value.paymentMethod.name
                 )
+
+                val order = createOrderUseCase(orderRequest)
+                val payment = createPaymentUseCase(
+                    CreatePaymentRequest(
+                        orderId = order.id,
+                        amount = order.totalAmount,
+                        method = uiState.value.paymentMethod.name
+                    )
+                )
+
+                cartRepository.clearAll()
+                order.id to payment
+            }.onSuccess { (orderId, payment) ->
+                _uiState.update { it.copy(isLoading = false, orderId = orderId, payment = payment) }
+            }.onFailure {
+                _uiState.update { it.copy(isLoading = false, errorMessage = "Не удалось оформить заказ") }
             }
-
-            val orderRequest = CreateOrderRequest(
-                customerId = currentUserId,
-                items = items,
-                deliveryMethod = uiState.value.deliveryMethod.name,
-                address = uiState.value.address,
-                comment = uiState.value.comment,
-                paymentMethod = uiState.value.paymentMethod.name
-            )
-
-            val order = createOrderUseCase(orderRequest)
-            val payment = createPaymentUseCase(
-                CreatePaymentRequest(
-                    orderId = order.id,
-                    amount = order.totalAmount,
-                    method = uiState.value.paymentMethod.name
-                )
-            )
-
-            cartRepository.clearAll()
-            _uiState.update { it.copy(orderId = order.id, payment = payment) }
         }
     }
 }
@@ -107,7 +114,9 @@ data class CheckoutUiState(
     val paymentMethod: PaymentMethod = PaymentMethod.SBP,
     val totalAmount: BigDecimal = BigDecimal.ZERO,
     val orderId: Int? = null,
-    val payment: Payment? = null
+    val payment: Payment? = null,
+    val isLoading: Boolean = false,
+    val errorMessage: String? = null
 ) {
     val isValid: Boolean
         get() = when (deliveryMethod) {

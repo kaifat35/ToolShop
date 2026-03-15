@@ -31,15 +31,24 @@ class ProductDetailViewModel @Inject constructor(
     fun loadProduct(productId: Int) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
-            val product = getProductUseCase(productId)
-            val availability = getAvailabilityUseCase(productId)
-            _uiState.update {
-                it.copy(
-                    product = product,
-                    availability = availability,
-                    isLoading = false,
-                    availableQuantity = product.quantity - availability.sumOf { period -> period.bookedQuantity }
-                )
+            runCatching {
+                val product = getProductUseCase(productId)
+                val availability = getAvailabilityUseCase(productId)
+                product to availability
+            }.onSuccess { (product, availability) ->
+                _uiState.update {
+                    it.copy(
+                        product = product,
+                        availability = availability,
+                        isLoading = false,
+                        errorMessage = null,
+                        availableQuantity = product.quantity - availability.sumOf { period -> period.bookedQuantity }
+                    )
+                }
+            }.onFailure {
+                _uiState.update {
+                    it.copy(isLoading = false, errorMessage = "Не удалось загрузить товар")
+                }
             }
         }
     }
@@ -85,5 +94,6 @@ data class ProductDetailUiState(
     val startDate: LocalDate? = null,
     val endDate: LocalDate? = null,
     val availableQuantity: Int = 0,
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val errorMessage: String? = null
 )
