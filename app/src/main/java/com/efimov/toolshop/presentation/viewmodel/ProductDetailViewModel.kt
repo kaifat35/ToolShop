@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.math.BigDecimal
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +27,6 @@ class ProductDetailViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(ProductDetailUiState())
     val uiState: StateFlow<ProductDetailUiState> = _uiState.asStateFlow()
-
     fun loadProduct(productId: Int) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
@@ -42,7 +41,8 @@ class ProductDetailViewModel @Inject constructor(
                         availability = availability,
                         isLoading = false,
                         errorMessage = null,
-                        availableQuantity = product.quantity - availability.sumOf { period -> period.bookedQuantity }
+                        availableQuantity = product.quantity - availability.sumOf { period
+                            -> period.bookedQuantity }
                     )
                 }
             }.onFailure {

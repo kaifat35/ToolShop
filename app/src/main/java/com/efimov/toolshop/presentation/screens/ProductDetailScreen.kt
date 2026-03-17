@@ -16,7 +16,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -27,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -77,8 +77,14 @@ fun ProductDetailScreen(
                 }
 
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = uiState.product.name, style = MaterialTheme.typography.headlineSmall)
-                    Text(text = "${uiState.product.pricePerDay} ₽/сутки", style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        text = uiState.product.name,
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                    Text(
+                        text = "${uiState.product.pricePerDay} ₽/сутки",
+                        style = MaterialTheme.typography.titleLarge
+                    )
                     Spacer(modifier = Modifier.height(8.dp))
 
                     DateRangePicker(
@@ -95,7 +101,8 @@ fun ProductDetailScreen(
                         onClick = {
                             if (uiState.startDate != null && uiState.endDate != null) {
                                 viewModel.addToCart()
-                                Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT)
+                                    .show()
                                 navController.popBackStack()
                             }
                         },
@@ -119,18 +126,44 @@ fun DateRangePicker(
 ) {
     val today = LocalDate.now()
 
-    Row {
-        OutlinedButton(onClick = { onStartDateChange(today) }) {
-            Text(startDate?.toString() ?: "Начало")
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                "Дата начала:",
+                modifier = Modifier.width(128.dp),
+                fontWeight = FontWeight.Medium
+            )
+            DatePickerButton(
+                date =
+                    startDate ?: LocalDate.now(), onDateSelected = onStartDateChange
+            )
         }
-        Spacer(modifier = Modifier.width(8.dp))
-        OutlinedButton(onClick = { onEndDateChange((startDate ?: today).plusDays(1)) }) {
-            Text(endDate?.toString() ?: "Окончание")
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                "Дата окончания:",
+                modifier = Modifier.width(128.dp),
+                fontWeight = FontWeight.Medium
+            )
+            DatePickerButton(
+                date =
+                    endDate ?: LocalDate.now(), onDateSelected = onEndDateChange
+            )
         }
     }
 
+    Spacer(modifier = Modifier.height(8.dp))
+
     if (startDate != null && endDate != null) {
-        val days = ChronoUnit.DAYS.between(startDate, endDate).coerceAtLeast(1)
-        Text("Срок аренды: $days дн.")
+        val days = ChronoUnit.DAYS.between(startDate, endDate)
+            .coerceAtLeast(1)
+        Text(
+            "Срок аренды: $days дн.",
+            modifier = Modifier,
+            fontWeight = FontWeight.Medium
+        )
     }
 }
