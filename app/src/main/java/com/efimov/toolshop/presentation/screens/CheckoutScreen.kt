@@ -98,7 +98,7 @@ fun CheckoutScreen(
                     selected = uiState.paymentMethod == PaymentMethod.CARD,
                     onClick = { viewModel.setPaymentMethod(PaymentMethod.CARD) }
                 )
-                Text("Банковская карта")
+                Text("Карта МИР")
             }
 
             Spacer(modifier = Modifier.height(24.dp))

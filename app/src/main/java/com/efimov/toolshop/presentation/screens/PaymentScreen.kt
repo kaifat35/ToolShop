@@ -1,5 +1,7 @@
 package com.efimov.toolshop.presentation.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -57,42 +59,84 @@ fun PaymentScreen(
             if (uiState.isLoading) {
                 CircularProgressIndicator()
             } else {
-                when (uiState.payment?.method) {
-                    PaymentMethod.SBP -> {
-                        Text("Оплата по СБП", style = MaterialTheme.typography.headlineSmall)
-                        Spacer(modifier = Modifier.height(16.dp))
+                when {
+                    uiState.isLoading -> CircularProgressIndicator()
+                    uiState.errorMessage != null -> Text(uiState.errorMessage ?: "Ошибка")
+                    else -> {
+                        when (uiState.payment?.method) {
+                            PaymentMethod.SBP -> {
+                                Text(
+                                    "Оплата по СБП",
+                                    style = MaterialTheme.typography.headlineSmall
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
 
-                        // Показываем QR-код
-                        val qrCode = uiState.payment?.sbpQrCode
-                        if (qrCode != null) {
-                            AsyncImage(
-                                model = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrCode}",
-                                contentDescription = "QR-код для оплаты",
-                                modifier = Modifier.size(200.dp)
-                            )
+                                val sbpLink = uiState.payment?.sbpQrCode
+                                if (!sbpLink.isNullOrBlank()) {
+                                    AsyncImage(
+                                        model = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$sbpLink",
+                                        contentDescription = "QR-код для оплаты по СБП",
+                                        modifier = Modifier.size(200.dp)
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Button(
+                                        onClick = {
+                                            context.startActivity(
+                                                Intent(Intent.ACTION_VIEW, Uri.parse(sbpLink))
+                                            )
+                                        },
+                                        modifier = Modifier.fillMaxWidth()
+                                    ) {
+                                        Text("Открыть оплату в банковском приложении")
+                                    }
+                                }
+
+                                Spacer(modifier = Modifier.height(12.dp))
+                                Text("Или отсканируйте QR-код в приложении банка")
+                            }
+
+                            PaymentMethod.CARD -> {
+                                Text(
+                                    "Оплата картой (МИР)",
+                                    style = MaterialTheme.typography.headlineSmall
+                                )
+                                Spacer(modifier = Modifier.height(12.dp))
+                                Text("Вы будете перенаправлены на защищённую платёжную страницу.")
+
+                                val paymentLink = uiState.payment?.confirmationUrl
+                                Button(
+                                    onClick = {
+                                        if (!paymentLink.isNullOrBlank()) {
+                                            context.startActivity(
+                                                Intent(Intent.ACTION_VIEW, Uri.parse(paymentLink))
+                                            )
+                                        }
+                                    },
+                                    enabled = !paymentLink.isNullOrBlank(),
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text("Оплатить картой МИР")
+                                }
+                            }
+
+                            null -> Unit
                         }
 
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text("Отсканируйте QR-код в приложении банка")
-
+                        Spacer(modifier = Modifier.height(12.dp))
                         Button(
                             onClick = { viewModel.checkPaymentStatus() },
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text("Проверить статус оплаты")
                         }
-                    }
-                    PaymentMethod.CARD -> {
-                        Text("Оплата картой")
-                        // Здесь можно интегрировать Stripe или другой шлюз
-                    }
-                    null -> {}
-                }
 
-                if (uiState.payment?.status == PaymentStatus.SUCCESS) {
-                    Text("Оплата прошла успешно!", color = Color.Green)
-                    Button(onClick = { navController.navigate("orders") }) {
-                        Text("Перейти к заказам")
+                        if (uiState.isSuccess) {
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Text("Оплата прошла успешно!", color = Color.Green)
+                            Button(onClick = { navController.navigate("orders") }) {
+                                Text("Перейти к заказам")
+                            }
+                        }
                     }
                 }
             }

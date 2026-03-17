@@ -244,6 +244,34 @@
         }
       ],
       "paymentMethod": "SBP"
+    },
+    {
+      "id": "fc15",
+      "customerId": 1728730834,
+      "deliveryMethod": "PICKUP",
+      "items": [
+        {
+          "endDate": "2026-03-20",
+          "productId": 1,
+          "quantity": 1,
+          "startDate": "2026-03-17"
+        }
+      ],
+      "paymentMethod": "SBP"
+    },
+    {
+      "id": "80bc",
+      "customerId": 1728730834,
+      "deliveryMethod": "PICKUP",
+      "items": [
+        {
+          "endDate": "2026-03-20",
+          "productId": 1,
+          "quantity": 1,
+          "startDate": "2026-03-17"
+        }
+      ],
+      "paymentMethod": "SBP"
     }
   ],
   "orderItems": [
@@ -317,6 +345,7 @@
       "status": "SUCCESS",
       "transactionId": "yookassa-txn-12345",
       "sbpQrCode": "https://qr.nspk.ru/AS1001A1BCDE2F3G4H5I6J7K8L9M0N1",
+      "confirmationUrl": "https://pay.example.ru/sbp/1",
       "createdAt": "2025-04-08T10:35:00Z",
       "updatedAt": "2025-04-08T10:40:00Z"
     },
@@ -328,6 +357,7 @@
       "status": "PENDING",
       "transactionId": null,
       "sbpQrCode": null,
+      "confirmationUrl": "https://pay.example.ru/mir/2",
       "createdAt": "2025-04-09T14:20:00Z",
       "updatedAt": null
     },
@@ -339,6 +369,7 @@
       "status": "SUCCESS",
       "transactionId": "yookassa-txn-67890",
       "sbpQrCode": "https://qr.nspk.ru/BS2002B2CDEF3G4H5I6J7K8L9M0N1O2",
+      "confirmationUrl": "https://pay.example.ru/sbp/3",
       "createdAt": "2025-04-01T09:05:00Z",
       "updatedAt": "2025-04-01T09:10:00Z"
     },
@@ -350,6 +381,7 @@
       "status": "SUCCESS",
       "transactionId": "yookassa-txn-24680",
       "sbpQrCode": "https://qr.nspk.ru/CS3003C3DEFG4H5I6J7K8L9M0N1O2P3",
+      "confirmationUrl": "https://pay.example.ru/sbp/4",
       "createdAt": "2025-04-10T11:05:00Z",
       "updatedAt": "2025-04-10T11:10:00Z"
     }

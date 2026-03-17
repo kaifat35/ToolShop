@@ -38,4 +38,7 @@ interface ApiService {
 
     @GET("payments/{id}")
     suspend fun getPayment(@Path("id") id: Int): Payment
+
+    @GET("payments")
+    suspend fun getPaymentsByOrderId(@Query("orderId") orderId: Int): List<Payment>
 }

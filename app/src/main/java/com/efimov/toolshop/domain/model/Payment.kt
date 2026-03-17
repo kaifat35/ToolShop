@@ -8,7 +8,8 @@ data class Payment(
     val amount: BigDecimal,
     val method: PaymentMethod,
     val status: PaymentStatus,
-    val sbpQrCode: String?
+    val sbpQrCode: String?,
+    val confirmationUrl: String? = null
 )
 
 enum class PaymentMethod { CARD, SBP }

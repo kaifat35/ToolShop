@@ -17,4 +17,8 @@ class PaymentRepositoryImpl @Inject constructor(
     override suspend fun getPayment(id: Int): Payment {
         return api.getPayment(id)
     }
+
+    override suspend fun getPaymentByOrderId(orderId: Int): Payment? {
+        return api.getPaymentsByOrderId(orderId).firstOrNull()
+    }
 }
