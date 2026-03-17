@@ -30,26 +30,28 @@ class ProductDetailViewModel @Inject constructor(
     fun loadProduct(productId: Int) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
-            runCatching {
-                val product = getProductUseCase(productId)
-                val availability = getAvailabilityUseCase(productId)
-                product to availability
-            }.onSuccess { (product, availability) ->
-                _uiState.update {
-                    it.copy(
-                        product = product,
-                        availability = availability,
-                        isLoading = false,
-                        errorMessage = null,
-                        availableQuantity = product.quantity - availability.sumOf { period
-                            -> period.bookedQuantity }
-                    )
+            runCatching { getProductUseCase(productId) }
+                .onSuccess { product ->
+                    val availability = runCatching { getAvailabilityUseCase(productId) }
+                        .getOrElse { emptyList() }
+
+                    _uiState.update {
+                        it.copy(
+                            product = product,
+                            availability = availability,
+                            isLoading = false,
+                            errorMessage = null,
+                            availableQuantity = product.quantity - availability.sumOf { period ->
+                                period.bookedQuantity
+                            }
+                        )
+                    }
                 }
-            }.onFailure {
-                _uiState.update {
-                    it.copy(isLoading = false, errorMessage = "Не удалось загрузить товар")
+                .onFailure {
+                    _uiState.update {
+                        it.copy(isLoading = false, errorMessage = "Не удалось загрузить товар")
+                    }
                 }
-            }
         }
     }
 
@@ -68,7 +70,7 @@ class ProductDetailViewModel @Inject constructor(
 
             val cartItem = CartItem(
                 productId = state.product.id,
-                productJson = state.product.name,
+                productJson = "",
                 product = state.product,
                 quantity = 1,
                 startDate = state.startDate,

@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Иван Петров",
       "email": "ivan@tools.ru",
       "phone": "+7 (900) 123-45-67",
@@ -10,7 +10,7 @@
       "avatarUrl": "https://randomuser.me/api/portraits/men/1.jpg"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "ООО СтройИнструмент",
       "email": "stroi@mail.ru",
       "phone": "+7 (495) 123-45-67",
@@ -19,7 +19,7 @@
       "avatarUrl": "https://randomuser.me/api/portraits/men/2.jpg"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Алексей Смирнов",
       "email": "alex@example.com",
       "phone": "+7 (910) 234-56-78",
@@ -28,7 +28,7 @@
       "avatarUrl": "https://randomuser.me/api/portraits/men/3.jpg"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Елена Кузнецова",
       "email": "elena@example.com",
       "phone": "+7 (920) 345-67-89",
@@ -37,7 +37,7 @@
       "avatarUrl": "https://randomuser.me/api/portraits/women/4.jpg"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Алексей Ефимов",
       "email": "mr-kaifat@yandex.ru",
       "phone": "+7 (920) 345-67-89",
@@ -46,19 +46,41 @@
       "avatarUrl": "https://randomuser.me/api/portraits/women/4.jpg"
     }
   ],
-
   "categories": [
-    { "id": 1, "name": "Электроинструменты", "parentId": null },
-    { "id": 2, "name": "Ручной инструмент", "parentId": null },
-    { "id": 3, "name": "Измерительные приборы", "parentId": null },
-    { "id": 4, "name": "Бетонное оборудование", "parentId": null },
-    { "id": 5, "name": "Сварочное оборудование", "parentId": null },
-    { "id": 6, "name": "Строительные леса и опалубка", "parentId": null }
+    {
+      "id": "1",
+      "name": "Электроинструменты",
+      "parentId": null
+    },
+    {
+      "id": "2",
+      "name": "Ручной инструмент",
+      "parentId": null
+    },
+    {
+      "id": "3",
+      "name": "Измерительные приборы",
+      "parentId": null
+    },
+    {
+      "id": "4",
+      "name": "Бетонное оборудование",
+      "parentId": null
+    },
+    {
+      "id": "5",
+      "name": "Сварочное оборудование",
+      "parentId": null
+    },
+    {
+      "id": "6",
+      "name": "Строительные леса и опалубка",
+      "parentId": null
+    }
   ],
-
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "ownerId": 1,
       "name": "Перфоратор Bosch GBH 2-26",
       "description": "Мощный перфоратор с SDS-plus патроном, 800 Вт, энергия удара 2,7 Дж",
@@ -72,7 +94,7 @@
       "createdAt": "2025-04-01T10:00:00Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "ownerId": 2,
       "name": "Бетономешалка 120л",
       "description": "Электрическая бетономешалка объемом 120 литров, мощность 550 Вт",
@@ -85,7 +107,7 @@
       "createdAt": "2025-04-02T11:30:00Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "ownerId": 1,
       "name": "Лазерный нивелир Bosch GLL 3-80",
       "description": "Трёхлучевой лазерный нивелир с дальностью 30 м, самовыравнивание",
@@ -98,7 +120,7 @@
       "createdAt": "2025-04-03T09:15:00Z"
     },
     {
-      "id": 4,
+      "id": "4",
       "ownerId": 2,
       "name": "Шуруповерт Makita 6281D",
       "description": "Аккумуляторный шуруповерт 12 В, комплект с двумя аккумуляторами",
@@ -111,7 +133,7 @@
       "createdAt": "2025-04-04T14:20:00Z"
     },
     {
-      "id": 5,
+      "id": "5",
       "ownerId": 1,
       "name": "Кувалда 5 кг",
       "description": "Кувалда с деревянной ручкой, вес 5 кг, длина 900 мм",
@@ -124,7 +146,7 @@
       "createdAt": "2025-04-05T16:45:00Z"
     },
     {
-      "id": 6,
+      "id": "6",
       "ownerId": 2,
       "name": "Сварочный инвертор Ресанта 160",
       "description": "Инверторный сварочный аппарат для MMA сварки, ток до 160 А",
@@ -137,7 +159,7 @@
       "createdAt": "2025-04-06T08:10:00Z"
     },
     {
-      "id": 7,
+      "id": "7",
       "ownerId": 1,
       "name": "Строительные леса (комплект на 5 м)",
       "description": "Комплект рамных лесов высотой 5 м, длина 2 м, включает настилы",
@@ -150,10 +172,9 @@
       "createdAt": "2025-04-07T12:30:00Z"
     }
   ],
-
   "orders": [
     {
-      "id": 1,
+      "id": "1",
       "customerId": 3,
       "createdAt": "2025-04-08T10:30:00Z",
       "totalAmount": 2250,
@@ -164,7 +185,7 @@
       "qrCodeData": "order-1-uuid-qr"
     },
     {
-      "id": 2,
+      "id": "2",
       "customerId": 4,
       "createdAt": "2025-04-09T14:15:00Z",
       "totalAmount": 1600,
@@ -175,7 +196,7 @@
       "qrCodeData": "order-2-uuid-qr"
     },
     {
-      "id": 3,
+      "id": "3",
       "customerId": 3,
       "createdAt": "2025-04-01T09:00:00Z",
       "totalAmount": 100,
@@ -186,7 +207,7 @@
       "qrCodeData": "order-3-uuid-qr"
     },
     {
-      "id": 4,
+      "id": "4",
       "customerId": 3,
       "createdAt": "2025-04-10T11:00:00Z",
       "totalAmount": 2500,
@@ -195,12 +216,39 @@
       "address": null,
       "comment": "Нужен перфоратор с буром 10мм",
       "qrCodeData": "order-4-uuid-qr"
+    },
+    {
+      "id": "55c5",
+      "customerId": 1728730834,
+      "deliveryMethod": "PICKUP",
+      "items": [
+        {
+          "endDate": "2026-03-18",
+          "productId": 1,
+          "quantity": 1,
+          "startDate": "2026-03-17"
+        }
+      ],
+      "paymentMethod": "SBP"
+    },
+    {
+      "id": "3526",
+      "customerId": 1728730834,
+      "deliveryMethod": "PICKUP",
+      "items": [
+        {
+          "endDate": "2026-03-18",
+          "productId": 1,
+          "quantity": 1,
+          "startDate": "2026-03-17"
+        }
+      ],
+      "paymentMethod": "SBP"
     }
   ],
-
   "orderItems": [
     {
-      "id": 1,
+      "id": "1",
       "orderId": 1,
       "productId": 1,
       "productName": "Перфоратор Bosch GBH 2-26",
@@ -210,7 +258,7 @@
       "pricePerDay": 500
     },
     {
-      "id": 2,
+      "id": "2",
       "orderId": 1,
       "productId": 4,
       "productName": "Шуруповерт Makita 6281D",
@@ -220,7 +268,7 @@
       "pricePerDay": 250
     },
     {
-      "id": 3,
+      "id": "3",
       "orderId": 2,
       "productId": 2,
       "productName": "Бетономешалка 120л",
@@ -230,7 +278,7 @@
       "pricePerDay": 800
     },
     {
-      "id": 4,
+      "id": "4",
       "orderId": 3,
       "productId": 5,
       "productName": "Кувалда 5 кг",
@@ -240,7 +288,7 @@
       "pricePerDay": 100
     },
     {
-      "id": 5,
+      "id": "5",
       "orderId": 4,
       "productId": 6,
       "productName": "Сварочный инвертор Ресанта 160",
@@ -250,7 +298,7 @@
       "pricePerDay": 600
     },
     {
-      "id": 6,
+      "id": "6",
       "orderId": 4,
       "productId": 3,
       "productName": "Лазерный нивелир Bosch GLL 3-80",
@@ -260,10 +308,9 @@
       "pricePerDay": 300
     }
   ],
-
   "payments": [
     {
-      "id": 1,
+      "id": "1",
       "orderId": 1,
       "amount": 2250,
       "method": "SBP",
@@ -274,7 +321,7 @@
       "updatedAt": "2025-04-08T10:40:00Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "orderId": 2,
       "amount": 1600,
       "method": "CARD",
@@ -285,7 +332,7 @@
       "updatedAt": null
     },
     {
-      "id": 3,
+      "id": "3",
       "orderId": 3,
       "amount": 100,
       "method": "SBP",
@@ -296,7 +343,7 @@
       "updatedAt": "2025-04-01T09:10:00Z"
     },
     {
-      "id": 4,
+      "id": "4",
       "orderId": 4,
       "amount": 2500,
       "method": "SBP",
@@ -306,5 +353,6 @@
       "createdAt": "2025-04-10T11:05:00Z",
       "updatedAt": "2025-04-10T11:10:00Z"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
