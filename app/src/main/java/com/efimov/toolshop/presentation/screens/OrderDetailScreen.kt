@@ -31,7 +31,7 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
 fun OrderDetailScreen(
-    orderId: Int?,
+    orderId: String?,
     navController: NavController,
     viewModel: OrderDetailViewModel = hiltViewModel()
 ) {

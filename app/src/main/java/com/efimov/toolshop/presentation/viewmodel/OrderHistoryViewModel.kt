@@ -1,6 +1,10 @@
 package com.efimov.toolshop.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.efimov.toolshop.domain.model.DeliveryMethod
+import com.efimov.toolshop.domain.model.Order
+import com.efimov.toolshop.domain.model.OrderItem
+import com.efimov.toolshop.domain.model.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,12 +20,12 @@ import kotlin.time.ExperimentalTime
 class OrderHistoryViewModel @Inject constructor() : ViewModel() {
 
     private val demoOrders = listOf(
-        DemoOrderFactory.create(id = 1001, total = BigDecimal("3200.00")),
-        DemoOrderFactory.create(id = 1002, total = BigDecimal("1500.00"))
+        DemoOrderFactory.create(id = "1001", total = BigDecimal("3200.00")),
+        DemoOrderFactory.create(id = "1002", total = BigDecimal("1500.00"))
     )
 
     private val _orders = MutableStateFlow(demoOrders)
-    val orders: StateFlow<List<com.efimov.toolshop.domain.model.Order>> = _orders.asStateFlow()
+    val orders: StateFlow<List<Order>> = _orders.asStateFlow()
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
@@ -29,17 +33,17 @@ class OrderHistoryViewModel @Inject constructor() : ViewModel() {
 
 @OptIn(ExperimentalTime::class)
 internal object DemoOrderFactory {
-    fun create(id: Int, total: BigDecimal): com.efimov.toolshop.domain.model.Order {
-        return com.efimov.toolshop.domain.model.Order(
+    fun create(id: String, total: BigDecimal): Order {
+        return Order(
             id = id,
             createdAt = Clock.System.now(),
             totalAmount = total,
-            status = com.efimov.toolshop.domain.model.OrderStatus.NEW,
-            deliveryMethod = com.efimov.toolshop.domain.model.DeliveryMethod.PICKUP,
+            status = OrderStatus.NEW,
+            deliveryMethod = DeliveryMethod.PICKUP,
             address = null,
             comment = null,
             items = listOf(
-                com.efimov.toolshop.domain.model.OrderItem(
+                OrderItem(
                     productId = 1,
                     productName = "Перфоратор",
                     quantity = 1,

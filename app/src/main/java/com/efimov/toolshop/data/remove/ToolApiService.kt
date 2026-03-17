@@ -31,14 +31,14 @@ interface ApiService {
     suspend fun getOrders(@Query("customerId") customerId: Int): List<Order>
 
     @POST("orders")
-    suspend fun createOrder(@Body order: CreateOrderRequest): Order
+    suspend fun createOrder(@Body order: CreateOrderRequest): CreateOrderResponse
 
     @POST("payments")
     suspend fun createPayment(@Body request: CreatePaymentRequest): Payment
 
     @GET("payments/{id}")
-    suspend fun getPayment(@Path("id") id: Int): Payment
+    suspend fun getPayment(@Path("id") id: String): Payment
 
     @GET("payments")
-    suspend fun getPaymentsByOrderId(@Query("orderId") orderId: Int): List<Payment>
+    suspend fun getPaymentsByOrderId(@Query("orderId") orderId: String): List<Payment>
 }

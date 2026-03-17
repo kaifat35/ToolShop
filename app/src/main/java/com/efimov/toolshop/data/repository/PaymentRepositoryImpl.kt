@@ -14,11 +14,11 @@ class PaymentRepositoryImpl @Inject constructor(
         return api.createPayment(request)
     }
 
-    override suspend fun getPayment(id: Int): Payment {
+    override suspend fun getPayment(id: String): Payment {
         return api.getPayment(id)
     }
 
-    override suspend fun getPaymentByOrderId(orderId: Int): Payment? {
+    override suspend fun getPaymentByOrderId(orderId: String): Payment? {
         return api.getPaymentsByOrderId(orderId).firstOrNull()
     }
 }

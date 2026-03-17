@@ -91,7 +91,7 @@ class CheckoutViewModel @Inject constructor(
                 val payment = createPaymentUseCase(
                     CreatePaymentRequest(
                         orderId = order.id,
-                        amount = order.totalAmount,
+                        amount = uiState.value.totalAmount,
                         method = uiState.value.paymentMethod.name
                     )
                 )
@@ -113,7 +113,7 @@ data class CheckoutUiState(
     val comment: String? = null,
     val paymentMethod: PaymentMethod = PaymentMethod.SBP,
     val totalAmount: BigDecimal = BigDecimal.ZERO,
-    val orderId: Int? = null,
+    val orderId: String? = null,
     val payment: Payment? = null,
     val isLoading: Boolean = false,
     val errorMessage: String? = null

@@ -35,7 +35,7 @@ import com.efimov.toolshop.presentation.viewmodel.PaymentViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PaymentScreen(
-    orderId: Int?,
+    orderId: String?,
     navController: NavController,
     viewModel: PaymentViewModel = hiltViewModel()
 ) {

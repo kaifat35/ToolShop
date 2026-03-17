@@ -13,7 +13,7 @@ import javax.inject.Inject
 class OrderDetailViewModel @Inject constructor() : ViewModel() {
 
     private val _order = MutableStateFlow(
-        DemoOrderFactory.create(id = 1001, total = BigDecimal("3200.00"))
+        DemoOrderFactory.create(id = "1001", total = BigDecimal("3200.00"))
     )
     val order: StateFlow<Order?> = _order.asStateFlow()
 

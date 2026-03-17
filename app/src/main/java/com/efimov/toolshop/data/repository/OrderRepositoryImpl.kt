@@ -2,6 +2,7 @@ package com.efimov.toolshop.data.repository
 
 import com.efimov.toolshop.data.remove.ApiService
 import com.efimov.toolshop.data.remove.CreateOrderRequest
+import com.efimov.toolshop.data.remove.CreateOrderResponse
 import com.efimov.toolshop.domain.model.Order
 import com.efimov.toolshop.domain.repository.OrderRepository
 import javax.inject.Inject
@@ -14,7 +15,7 @@ class OrderRepositoryImpl @Inject constructor(
         return api.getOrders(customerId)
     }
 
-    override suspend fun createOrder(orderRequest: CreateOrderRequest): Order {
+    override suspend fun createOrder(orderRequest: CreateOrderRequest): CreateOrderResponse {
         return api.createOrder(orderRequest)
     }
 }

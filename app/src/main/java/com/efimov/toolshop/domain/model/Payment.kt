@@ -3,8 +3,8 @@ package com.efimov.toolshop.domain.model
 import java.math.BigDecimal
 
 data class Payment(
-    val id: Int,
-    val orderId: Int,
+    val id: String,
+    val orderId: String,
     val amount: BigDecimal,
     val method: PaymentMethod,
     val status: PaymentStatus,

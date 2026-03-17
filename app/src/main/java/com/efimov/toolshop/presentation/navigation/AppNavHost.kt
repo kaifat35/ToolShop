@@ -34,14 +34,14 @@ fun AppNavHost(
             CheckoutScreen(navController)
         }
         composable("payment/{orderId}") { backStackEntry ->
-            val orderId = backStackEntry.arguments?.getString("orderId")?.toIntOrNull()
+            val orderId = backStackEntry.arguments?.getString("orderId")
             PaymentScreen(orderId = orderId, navController = navController)
         }
         composable("orders") {
             OrderHistoryScreen(navController)
         }
         composable("order/{orderId}") { backStackEntry ->
-            val orderId = backStackEntry.arguments?.getString("orderId")?.toIntOrNull()
+            val orderId = backStackEntry.arguments?.getString("orderId")
             OrderDetailScreen(orderId = orderId, navController = navController)
         }
         composable("profile") {

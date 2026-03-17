@@ -272,6 +272,62 @@
         }
       ],
       "paymentMethod": "SBP"
+    },
+    {
+      "id": "2b68",
+      "customerId": 1728730834,
+      "deliveryMethod": "PICKUP",
+      "items": [
+        {
+          "endDate": "2026-03-20",
+          "productId": 1,
+          "quantity": 1,
+          "startDate": "2026-03-18"
+        }
+      ],
+      "paymentMethod": "SBP"
+    },
+    {
+      "id": "e270",
+      "customerId": 1728730834,
+      "deliveryMethod": "PICKUP",
+      "items": [
+        {
+          "endDate": "2026-03-20",
+          "productId": 1,
+          "quantity": 1,
+          "startDate": "2026-03-18"
+        }
+      ],
+      "paymentMethod": "SBP"
+    },
+    {
+      "id": "1839",
+      "customerId": 1728730834,
+      "deliveryMethod": "PICKUP",
+      "items": [
+        {
+          "endDate": "2026-03-20",
+          "productId": 1,
+          "quantity": 1,
+          "startDate": "2026-03-18"
+        }
+      ],
+      "paymentMethod": "SBP"
+    },
+    {
+      "id": "96cc",
+      "customerId": 1728730834,
+      "deliveryMethod": "PICKUP",
+      "items": [
+        {
+          "endDate": "2026-03-18",
+          "productId": 3,
+          "quantity": 1,
+          "startDate": "2026-03-17"
+        }
+      ],
+      "paymentMethod": "SBP"
     }
   ],
   "orderItems": [
@@ -384,6 +440,18 @@
       "confirmationUrl": "https://pay.example.ru/sbp/4",
       "createdAt": "2025-04-10T11:05:00Z",
       "updatedAt": "2025-04-10T11:10:00Z"
+    },
+    {
+      "id": "c9a4",
+      "amount": 1000,
+      "method": "SBP",
+      "orderId": "1839"
+    },
+    {
+      "id": "d9fd",
+      "amount": 300,
+      "method": "SBP",
+      "orderId": "96cc"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

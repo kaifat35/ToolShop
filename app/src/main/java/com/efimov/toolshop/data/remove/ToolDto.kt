@@ -23,6 +23,9 @@ data class CreateOrderRequest(
     val comment: String?,
     val paymentMethod: String
 )
+data class CreateOrderResponse(
+    val id: String
+)
 
 data class OrderItemRequest(
     val productId: Int,
@@ -32,7 +35,7 @@ data class OrderItemRequest(
 )
 
 data class CreatePaymentRequest(
-    val orderId: Int,
+    val orderId: String,
     val amount: BigDecimal,
     val method: String
 )

@@ -6,7 +6,7 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 data class Order @OptIn(ExperimentalTime::class) constructor(
-    val id: Int,
+    val id: String,
     val createdAt: Instant,
     val totalAmount: BigDecimal,
     val status: OrderStatus,
